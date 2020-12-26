@@ -85,13 +85,10 @@ defmodule Mazes.Grid do
 
   @spec map_cells(t(), (Cell.t() -> Cell.t())) :: t()
   def map_cells(grid, fun) do
-    Map.put(
-      grid,
-      :cells,
-      grid.cells
-      |> Map.values()
-      |> Enum.map(fun)
-      |> Enum.into(%{}, &{&1.coords, &1})
-    )
+    grid.cells
+    |> Map.values()
+    |> Enum.reduce(grid, fn cell, grid ->
+      put_in(grid.cells[cell.coords], fun.(cell))
+    end)
   end
 end
