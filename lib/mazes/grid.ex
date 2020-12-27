@@ -83,11 +83,24 @@ defmodule Mazes.Grid do
   @spec size(t()) :: integer()
   def size(grid), do: grid.rows * grid.columns
 
+  @spec map_rows(t(), ([Cell.t()] -> [Cell.t()])) :: t()
+  def map_rows(grid, fun) do
+    grid.cells
+    |> Enum.group_by(fn {{row, _column}, _cell} -> row end, fn {_coords, cell} -> cell end)
+    |> Map.values()
+    |> Enum.flat_map(fun)
+    |> reduce_cells(grid, fun)
+  end
+
   @spec map_cells(t(), (Cell.t() -> Cell.t())) :: t()
   def map_cells(grid, fun) do
     grid.cells
     |> Map.values()
-    |> Enum.reduce(grid, fn cell, grid ->
+    |> reduce_cells(grid, fun)
+  end
+
+  defp reduce_cells(cells, grid, fun) do
+    Enum.reduce(cells, grid, fn cell, grid ->
       put_in(grid.cells[cell.coords], fun.(cell))
     end)
   end
