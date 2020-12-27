@@ -1,6 +1,6 @@
 defmodule Mazes.Cell do
-  @enforce_keys [:coords, :links]
-  defstruct [:coords, :north, :east, :south, :west, :links]
+  @enforce_keys [:coords]
+  defstruct [:coords, :north, :east, :south, :west]
 
   @type coords :: {integer(), integer()}
   @type t :: %__MODULE__{
@@ -14,14 +14,6 @@ defmodule Mazes.Cell do
 
   @spec new(coords()) :: t()
   def new(coords), do: %__MODULE__{coords: coords, links: []}
-
-  @spec link(t(), t()) :: t()
-  def link(from, to) do
-    put_in(from.links, [to | from.links])
-  end
-
-  @spec linked?(t(), coords()) :: boolean()
-  def linked?(cell, coords), do: coords in cell.links
 
   @spec neighbours(t()) :: [t()]
   def neighbours(cell) do

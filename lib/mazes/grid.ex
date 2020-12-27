@@ -1,7 +1,7 @@
 defmodule Mazes.Grid do
   alias Mazes.Cell
 
-  @enforce_keys [:rows, :columns, :cells]
+  @enforce_keys [:rows, :columns, :cells, :links]
   defstruct rows: nil, columns: nil, cells: nil
 
   @type t :: %__MODULE__{rows: integer(), columns: integer(), cells: %{Cell.coords() => Cell.t()}}
@@ -15,7 +15,7 @@ defmodule Mazes.Grid do
     def inspect(grid, _opts) do
       [
         ["+", String.duplicate("---+", grid.columns), "\n"],
-        Enum.map(0..(grid.rows - 1), &inspect_row(grid, &1))
+        Enum.map((grid.rows - 1)..0, &inspect_row(grid, &1))
       ]
       |> IO.chardata_to_string()
     end
@@ -39,7 +39,7 @@ defmodule Mazes.Grid do
     end
 
     defp inspect_cell_bottom(grid, {row, column} = coords) do
-      if Cell.linked?(grid.cells[coords], {row + 1, column}), do: "   +", else: "---+"
+      if Cell.linked?(grid.cells[coords], {row - 1, column}), do: "   +", else: "---+"
     end
   end
 
@@ -61,9 +61,9 @@ defmodule Mazes.Grid do
     {{row, column},
      Cell.add_neighbours(
        cell,
-       coords_if_cell_exists(cells, {row - 1, column}),
-       coords_if_cell_exists(cells, {row, column + 1}),
        coords_if_cell_exists(cells, {row + 1, column}),
+       coords_if_cell_exists(cells, {row, column + 1}),
+       coords_if_cell_exists(cells, {row - 1, column}),
        coords_if_cell_exists(cells, {row, column - 1})
      )}
   end
