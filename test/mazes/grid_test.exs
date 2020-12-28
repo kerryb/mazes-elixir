@@ -138,9 +138,27 @@ defmodule Mazes.GridTest do
   describe "Mazes.Grid.map_cells/2" do
     test "maps over all cells with the supplied function" do
       grid = Grid.new(3, 3) |> Grid.map_cells(&Grid.link_north/2)
-    for row <- 0..(grid.rows - 1), column <- 0..(grid.columns - 1) do
-      assert Grid.linked_north?(grid, {row, column})
+
+      for row <- 0..2, column <- 0..2 do
+        assert Grid.linked_north?(grid, {row, column})
+      end
     end
+  end
+
+  describe "Mazes.Grid.map_rows/2" do
+    test "maps over all rows with the supplied function" do
+      grid =
+        Grid.new(3, 3)
+        |> Grid.map_rows(fn grid, [a, _, c] ->
+          grid
+          |> Grid.link_north(a)
+          |> Grid.link_east(c)
+        end)
+
+      for row <- 0..2 do
+        assert Grid.linked_north?(grid, {row, 0})
+        assert Grid.linked_east?(grid, {row, 2})
+      end
     end
   end
 

@@ -56,6 +56,15 @@ defmodule Mazes.Grid do
     |> Enum.reduce(grid, &fun.(&2, &1))
   end
 
+  def map_rows(grid, fun) do
+    for row <- 0..(grid.rows - 1) do
+      for column <- 0..(grid.columns - 1) do
+        {row, column}
+      end
+    end
+    |> Enum.reduce(grid, &fun.(&2, &1))
+  end
+
   defimpl Inspect do
     alias Mazes.Grid
 
