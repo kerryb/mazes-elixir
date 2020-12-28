@@ -1,8 +1,9 @@
 # Mazes
 
 Working through Jamis Buck’s
-[https://pragprog.com/titles/jbmaze/mazes-for-programmers/](Mazes for
-programmers) book in Elixir.
+[Mazes for
+Programmers](https://pragprog.com/titles/jbmaze/mazes-for-programmers/) book in
+Elixir.
 
 ## Running tests
 
