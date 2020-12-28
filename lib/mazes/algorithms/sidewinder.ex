@@ -1,4 +1,8 @@
 defmodule Mazes.Algorithms.Sidewinder do
+  @moduledoc """
+  Implementation of the sidewinder algorithm.
+  """
+
   alias Mazes.Grid
 
   def on(grid) do
@@ -20,7 +24,7 @@ defmodule Mazes.Algorithms.Sidewinder do
     if should_close_out? do
       {link_random_cell_north_if_possible(grid, [cell | run]), []}
     else
-      {link_east_if_possible(grid, cell), [cell | run]}
+      {Grid.link_east(grid, cell), [cell | run]}
     end
   end
 
@@ -29,14 +33,6 @@ defmodule Mazes.Algorithms.Sidewinder do
 
     if Grid.north(grid, cell) do
       Grid.link_north(grid, cell)
-    else
-      grid
-    end
-  end
-
-  defp link_east_if_possible(grid, cell) do
-    if Grid.east(grid, cell) do
-      Grid.link_east(grid, cell)
     else
       grid
     end

@@ -5,9 +5,9 @@ Working through Jamis Buck’s
 Programmers](https://pragprog.com/titles/jbmaze/mazes-for-programmers/) book in
 Elixir.
 
-## Running tests
+## Running tests and stuff
 
-    mix test # obviously
+    make
 
 ## Building mazes manually
 

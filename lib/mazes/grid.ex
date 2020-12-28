@@ -1,4 +1,16 @@
 defmodule Mazes.Grid do
+  @moduledoc """
+  A struct representing a maze grid, with functions to operate on it.
+
+  Fields:
+
+    * rows: the number of rows in the grid
+    * columns: the number of columns in the grid
+    * cells: a list of `{row, column}` tuples representing the cells in the
+      grid
+    * links: a map of cell coords to lists of their linked cells
+  """
+
   @enforce_keys [:rows, :columns]
   defstruct rows: nil, columns: nil, cells: [], links: %{}
 

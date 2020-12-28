@@ -1,4 +1,8 @@
 defmodule Mazes.Algorithms.BinaryTree do
+  @moduledoc """
+  Implementation of the binary tree algorithm.
+  """
+
   alias Mazes.Grid
 
   def on(grid) do

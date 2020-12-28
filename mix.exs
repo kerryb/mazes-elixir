@@ -8,7 +8,12 @@ defmodule Mazes.MixProject do
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      consolidate_protocols: Mix.env() != :dev
+      elixirc_options: elixirc_options(Mix.env()),
+      consolidate_protocols: Mix.env() != :dev,
+      preferred_cli_env: preferred_cli_env(),
+      test_coverage: [tool: ExCoveralls],
+      dialyzer: dialyzer(),
+      docs: docs()
     ]
   end
 
@@ -19,11 +24,38 @@ defmodule Mazes.MixProject do
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
+  defp elixirc_options(:test), do: []
+  defp elixirc_options(_env), do: [warnings_as_errors: true]
+
+  defp preferred_cli_env do
+    [
+      coveralls: :test,
+      "coveralls.detail": :test,
+      "coveralls.html": :test
+    ]
+  end
+
+  defp dialyzer do
+    [
+      plt_add_deps: :app_tree,
+      ignore_warnings: "config/dialyzer.ignore-warnings"
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      extras: ~w(README.md),
+      source_url_pattern: "https://github.com/kerryb/mazes-elixir/blob/master/%{path}#L%{line}"
+    ]
+  end
+
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:credo, "~> 1.3", only: [:dev, :test]},
+      {:dialyxir, "~> 1.0", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.10", only: :test},
+      {:ex_doc, "~> 0.21", only: :dev}
     ]
   end
 end
