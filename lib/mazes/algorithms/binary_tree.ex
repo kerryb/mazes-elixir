@@ -1,4 +1,4 @@
-defmodule Mazes.BinaryTree do
+defmodule Mazes.Algorithms.BinaryTree do
   alias Mazes.Grid
 
   def on(grid) do

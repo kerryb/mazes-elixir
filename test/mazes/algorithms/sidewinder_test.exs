@@ -1,7 +1,9 @@
-defmodule Mazes.SidewinderTest do
+defmodule Mazes.Algorithms.SidewinderTest do
   use ExUnit.Case, async: true
 
-  alias Mazes.{Sidewinder, Grid}
+  alias Mazes.Algorithms.Sidewinder
+  alias Mazes.Grid
+
   doctest Sidewinder
 
   describe "Mazes.Sidewinder.on/1" do

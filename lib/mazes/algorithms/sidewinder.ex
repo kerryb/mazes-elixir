@@ -1,4 +1,4 @@
-defmodule Mazes.Sidewinder do
+defmodule Mazes.Algorithms.Sidewinder do
   alias Mazes.Grid
 
   def on(grid) do

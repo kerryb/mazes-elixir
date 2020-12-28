@@ -2,6 +2,7 @@ defmodule Mazes.GridTest do
   use ExUnit.Case, async: true
 
   alias Mazes.Grid
+
   doctest Grid
 
   describe "Mazes.Grid.new/2" do
