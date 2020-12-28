@@ -1,21 +1,15 @@
 # Mazes
 
-**TODO: Add description**
+Working through Jamis Buck’s
+[https://pragprog.com/titles/jbmaze/mazes-for-programmers/](Mazes for
+programmers) book in Elixir.
 
-## Installation
+## Running tests
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `mazes` to your list of dependencies in `mix.exs`:
+    mix test # obviously
 
-```elixir
-def deps do
-  [
-    {:mazes, "~> 0.1.0"}
-  ]
-end
-```
+## Building mazes manually
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/mazes](https://hexdocs.pm/mazes).
+For example:
 
+    iex> Mazes.Grid.new(20, 20) |> Mazes.Algorithms.BinaryTree.on()
