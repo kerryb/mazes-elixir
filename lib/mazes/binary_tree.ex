@@ -1,18 +1,17 @@
 defmodule Mazes.BinaryTree do
-  alias Mazes.{Cell, Grid}
+  alias Mazes.Grid
 
-  @spec on(Grid.t()) :: Grid.t()
   def on(grid) do
-    Grid.map_cells(grid, &randomly_link_north_or_east(&1, grid))
+    Grid.map_cells(grid, &link_north_or_east/2)
   end
 
-  @spec randomly_link_north_or_east(Cell.t(),Grid.t()) :: Cell.t()
-  def randomly_link_north_or_east(cell, grid) do
-    [cell.north, cell.east]
-    |> Enum.reject(&is_nil/1)
-    |> case do
-      [] -> cell
-      neighbours -> Cell.link(cell, grid.cells[Enum.random(neighbours)])
+  def link_north_or_east(grid, coords) do
+    case {Grid.north(grid, coords), Grid.east(grid, coords), :rand.uniform(2)} do
+      {nil, nil, _} -> grid
+      {_, nil, _} -> Grid.link_north(grid, coords)
+      {nil, _, _} -> Grid.link_east(grid, coords)
+      {_, _, 1} -> Grid.link_north(grid, coords)
+      _ -> Grid.link_east(grid, coords)
     end
   end
 end
