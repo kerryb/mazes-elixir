@@ -33,20 +33,20 @@ defmodule Mazes.Grid do
   end
 
   @spec north(t(), cell()) :: cell() | nil
-  def north(%{rows: rows}, {row, _}) when row >= rows - 1, do: nil
-  def north(_, {row, column}), do: {row + 1, column}
+  def north(%{rows: rows}, {row, _column}) when row >= rows - 1, do: nil
+  def north(_grid, {row, column}), do: {row + 1, column}
 
   @spec east(t(), cell()) :: cell() | nil
-  def east(%{columns: columns}, {_, column}) when column >= columns - 1, do: nil
-  def east(_, {row, column}), do: {row, column + 1}
+  def east(%{columns: columns}, {_row, column}) when column >= columns - 1, do: nil
+  def east(_grid, {row, column}), do: {row, column + 1}
 
   @spec south(t(), cell()) :: cell() | nil
-  def south(_, {row, _}) when row <= 0, do: nil
-  def south(_, {row, column}), do: {row - 1, column}
+  def south(_grid, {row, _column}) when row <= 0, do: nil
+  def south(_grid, {row, column}), do: {row - 1, column}
 
   @spec west(t(), cell()) :: cell() | nil
-  def west(_, {_, column}) when column <= 0, do: nil
-  def west(_, {row, column}), do: {row, column - 1}
+  def west(_grid, {_row, column}) when column <= 0, do: nil
+  def west(_grid, {row, column}), do: {row, column - 1}
 
   @spec link_north(t(), cell()) :: t()
   def link_north(grid, cell), do: link(grid, cell, north(grid, cell))
@@ -90,32 +90,37 @@ defmodule Mazes.Grid do
 
   @spec map_cells(t(), (t(), cell() -> t())) :: t()
   def map_cells(grid, fun) do
-    for row <- 0..(grid.rows - 1), column <- 0..(grid.columns - 1) do
-      {row, column}
-    end
-    |> Enum.reduce(grid, &fun.(&2, &1))
+    Enum.reduce(
+      for row <- 0..(grid.rows - 1), column <- 0..(grid.columns - 1) do
+        {row, column}
+      end,
+      grid,
+      &fun.(&2, &1)
+    )
   end
 
   @spec map_rows(t(), (t(), [cell()] -> t())) :: t()
   def map_rows(grid, fun) do
-    for row <- 0..(grid.rows - 1) do
-      for column <- 0..(grid.columns - 1) do
-        {row, column}
-      end
-    end
-    |> Enum.reduce(grid, &fun.(&2, &1))
+    Enum.reduce(
+      for row <- 0..(grid.rows - 1) do
+        for column <- 0..(grid.columns - 1) do
+          {row, column}
+        end
+      end,
+      grid,
+      &fun.(&2, &1)
+    )
   end
 
   defimpl Inspect do
     alias Mazes.Grid
 
-    @impl true
+    @spec inspect(Grid.t(), Inspect.Opts.t()) :: String.t()
     def inspect(grid, _opts) do
-      [
+      IO.chardata_to_string([
         ["+", String.duplicate("---+", grid.columns), "\n"],
         Enum.map((grid.rows - 1)..0, &inspect_row(grid, &1))
-      ]
-      |> IO.chardata_to_string()
+      ])
     end
 
     defp inspect_row(grid, row) do

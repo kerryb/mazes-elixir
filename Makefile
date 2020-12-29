@@ -4,7 +4,7 @@ update-deps:
 	mix deps.update --all
 style:
 	mix format --check-formatted
-	mix credo
+	mix credo --strict
 dialyzer:
 	mix dialyzer
 test:

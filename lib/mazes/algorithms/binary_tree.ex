@@ -10,13 +10,13 @@ defmodule Mazes.Algorithms.BinaryTree do
     Grid.map_cells(grid, &link_north_or_east/2)
   end
 
-  def link_north_or_east(grid, cell) do
+  defp link_north_or_east(grid, cell) do
     case {Grid.north(grid, cell), Grid.east(grid, cell), :rand.uniform(2)} do
-      {nil, nil, _} -> grid
-      {_, nil, _} -> Grid.link_north(grid, cell)
-      {nil, _, _} -> Grid.link_east(grid, cell)
-      {_, _, 1} -> Grid.link_north(grid, cell)
-      _ -> Grid.link_east(grid, cell)
+      {nil, nil, _rand} -> grid
+      {_north, nil, _rand} -> Grid.link_north(grid, cell)
+      {nil, _east, _rand} -> Grid.link_east(grid, cell)
+      {_north, _east, 1} -> Grid.link_north(grid, cell)
+      _default -> Grid.link_east(grid, cell)
     end
   end
 end

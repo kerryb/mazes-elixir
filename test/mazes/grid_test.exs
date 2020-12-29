@@ -1,3 +1,6 @@
+# credo:disable-for-this-file Credo.Check.Readability.SinglePipe
+# credo:disable-for-this-file Credo.Check.Refactor.PipeChainStart
+
 defmodule Mazes.GridTest do
   use ExUnit.Case, async: true
   import AssertValue
