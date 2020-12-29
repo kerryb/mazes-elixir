@@ -5,6 +5,7 @@ defmodule Mazes.Algorithms.BinaryTree do
 
   alias Mazes.Grid
 
+  @spec on(Grid.t()) :: Grid.t()
   def on(grid) do
     Grid.map_cells(grid, &link_north_or_east/2)
   end

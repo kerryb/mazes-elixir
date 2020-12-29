@@ -5,6 +5,7 @@ defmodule Mazes.Algorithms.Sidewinder do
 
   alias Mazes.Grid
 
+  @spec on(Grid.t()) :: Grid.t()
   def on(grid) do
     Grid.map_rows(grid, &link_horizontal_runs/2)
   end
