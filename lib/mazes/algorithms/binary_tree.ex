@@ -11,11 +11,11 @@ defmodule Mazes.Algorithms.BinaryTree do
   end
 
   defp link_north_or_east(grid, cell) do
-    case {Grid.north(grid, cell), Grid.east(grid, cell), :rand.uniform(2)} do
-      {nil, nil, _rand} -> grid
-      {_north, nil, _rand} -> Grid.link_north(grid, cell)
-      {nil, _east, _rand} -> Grid.link_east(grid, cell)
-      {_north, _east, 1} -> Grid.link_north(grid, cell)
+    case {Grid.north(grid, cell), Grid.east(grid, cell), Enum.random([:north, :east])} do
+      {nil = _north_neighbour, nil = _east_neighbour, _preferred} -> grid
+      {_north_neighbour, nil = _east_neighbour, _preferred} -> Grid.link_north(grid, cell)
+      {nil = _north_neighbour, _east_neighbour, _preferred} -> Grid.link_east(grid, cell)
+      {_north_neighbour, _east_neighbour, :north} -> Grid.link_north(grid, cell)
       _default -> Grid.link_east(grid, cell)
     end
   end

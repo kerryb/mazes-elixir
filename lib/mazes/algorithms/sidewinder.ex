@@ -20,7 +20,7 @@ defmodule Mazes.Algorithms.Sidewinder do
     at_northern_boundary? = is_nil(Grid.north(grid, cell))
 
     should_close_out? =
-      at_eastern_boundary? or (not at_northern_boundary? and :rand.uniform(2) == 1)
+      at_eastern_boundary? or (not at_northern_boundary? and Enum.random([true, false]))
 
     if should_close_out? do
       {link_random_cell_north_if_possible(grid, [cell | run]), []}
