@@ -14,48 +14,48 @@ defmodule Mazes.GridTest do
   end
 
   describe "Mazes.Grid.north/2" do
-    test "returns the coords of the cell one row above" do
+    test "returns the cell one row above" do
       grid = Grid.new(3, 3)
       assert Grid.north(grid, {1, 1}) == {2, 1}
     end
 
-    test "returns nil if the coords are on the north border" do
+    test "returns nil if the cell is on the north border" do
       grid = Grid.new(3, 3)
       assert Grid.north(grid, {2, 1}) == nil
     end
   end
 
   describe "Mazes.Grid.east/2" do
-    test "returns the coords of the cell one column to the right" do
+    test "returns the cell one column to the right" do
       grid = Grid.new(3, 3)
       assert Grid.east(grid, {1, 1}) == {1, 2}
     end
 
-    test "returns nil if the coords are on the east border" do
+    test "returns nil if the cell is on the east border" do
       grid = Grid.new(3, 3)
       assert Grid.east(grid, {1, 2}) == nil
     end
   end
 
   describe "Mazes.Grid.south/2" do
-    test "returns the coords of the cell one row below" do
+    test "returns the cell one row below" do
       grid = Grid.new(3, 3)
       assert Grid.south(grid, {1, 1}) == {0, 1}
     end
 
-    test "returns nil if the coords are on the south border" do
+    test "returns nil if the cell is on the south border" do
       grid = Grid.new(3, 3)
       assert Grid.south(grid, {0, 1}) == nil
     end
   end
 
   describe "Mazes.Grid.west/2" do
-    test "returns the coords of the cell one column to the left" do
+    test "returns the cell one column to the left" do
       grid = Grid.new(3, 3)
       assert Grid.west(grid, {1, 1}) == {1, 0}
     end
 
-    test "returns nil if the coords are on the west border" do
+    test "returns nil if the cell is on the west border" do
       grid = Grid.new(3, 3)
       assert Grid.west(grid, {2, 0}) == nil
     end

@@ -8,7 +8,7 @@ defmodule Mazes.Grid do
     * columns: the number of columns in the grid
     * cells: a list of `{row, column}` tuples representing the cells in the
       grid
-    * links: a map of cell coords to lists of their linked cells
+    * links: a map of cells to lists of their linked cells
   """
 
   @enforce_keys [:rows, :columns]
@@ -49,16 +49,16 @@ defmodule Mazes.Grid do
   def west(_, {row, column}), do: {row, column - 1}
 
   @spec link_north(t(), cell()) :: t()
-  def link_north(grid, coords), do: link(grid, coords, north(grid, coords))
+  def link_north(grid, cell), do: link(grid, cell, north(grid, cell))
 
   @spec link_east(t(), cell()) :: t()
-  def link_east(grid, coords), do: link(grid, coords, east(grid, coords))
+  def link_east(grid, cell), do: link(grid, cell, east(grid, cell))
 
   @spec link_south(t(), cell()) :: t()
-  def link_south(grid, coords), do: link(grid, coords, south(grid, coords))
+  def link_south(grid, cell), do: link(grid, cell, south(grid, cell))
 
   @spec link_west(t(), cell()) :: t()
-  def link_west(grid, coords), do: link(grid, coords, west(grid, coords))
+  def link_west(grid, cell), do: link(grid, cell, west(grid, cell))
 
   defp link(grid, from, to) do
     links =
@@ -132,12 +132,12 @@ defmodule Mazes.Grid do
       Enum.map(0..(grid.columns - 1), &fun.(grid, {row, &1}))
     end
 
-    defp inspect_cell_top(grid, coords) do
-      if Grid.linked_east?(grid, coords), do: "    ", else: "   |"
+    defp inspect_cell_top(grid, cell) do
+      if Grid.linked_east?(grid, cell), do: "    ", else: "   |"
     end
 
-    defp inspect_cell_bottom(grid, coords) do
-      if Grid.linked_south?(grid, coords), do: "   +", else: "---+"
+    defp inspect_cell_bottom(grid, cell) do
+      if Grid.linked_south?(grid, cell), do: "   +", else: "---+"
     end
   end
 end
