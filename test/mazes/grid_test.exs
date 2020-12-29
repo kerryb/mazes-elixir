@@ -1,5 +1,6 @@
 defmodule Mazes.GridTest do
   use ExUnit.Case, async: true
+  import AssertValue
 
   alias Mazes.Grid
 
@@ -176,15 +177,15 @@ defmodule Mazes.GridTest do
         |> Grid.link_east({2, 0})
         |> Grid.link_east({2, 1})
 
-      assert inspect(grid) == """
-             +---+---+---+
-             |           |
-             +---+   +   +
-             |       |   |
-             +   +---+   +
-             |   |       |
-             +---+---+---+
-             """
+      assert_value inspect(grid) == """
+                   +---+---+---+
+                   |           |
+                   +---+   +   +
+                   |       |   |
+                   +   +---+   +
+                   |   |       |
+                   +---+---+---+
+                   """
     end
   end
 end
