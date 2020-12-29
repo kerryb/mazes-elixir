@@ -25,7 +25,7 @@ defmodule Mazes.Grid do
   @spec new(integer(), integer()) :: t()
   def new(rows, columns) do
     cells =
-      for row <- 0..(rows - 1), column <- 0..columns do
+      for row <- 0..(rows - 1), column <- 0..(columns - 1) do
         {row, column}
       end
 

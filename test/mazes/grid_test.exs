@@ -14,6 +14,19 @@ defmodule Mazes.GridTest do
       grid = Grid.new(2, 3)
       assert {grid.rows, grid.columns} == {2, 3}
     end
+
+    test "creates cells" do
+      grid = Grid.new(2, 3)
+
+      assert grid.cells == [
+               {0, 0},
+               {0, 1},
+               {0, 2},
+               {1, 0},
+               {1, 1},
+               {1, 2}
+             ]
+    end
   end
 
   describe "Mazes.Grid.north/2" do

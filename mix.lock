@@ -1,5 +1,6 @@
 %{
   "assert_value": {:hex, :assert_value, "0.9.5", "d2ae96057ead6b99cd0577955f264c3feea3c0e6a9bcee962bbe75668487a54b", [:mix], [], "hexpm", "71f2c0aee9254ef2b357deda8e03a5a0c19ec8af447ae49aea1127755a1c7c39"},
+  "briefly": {:hex, :briefly, "0.3.0", "16e6b76d2070ebc9cbd025fa85cf5dbaf52368c4bd896fb482b5a6b95a540c2f", [:mix], [], "hexpm", "c6ebf8fc3dcd4950dd10c03e953fb4f553a8bcf0ff4c8c40d71542434cd7e046"},
   "bunt": {:hex, :bunt, "0.2.0", "951c6e801e8b1d2cbe58ebbd3e616a869061ddadcc4863d0a2182541acae9a38", [:mix], [], "hexpm", "7af5c7e09fe1d40f76c8e4f9dd2be7cebd83909f31fee7cd0e9eadc567da8353"},
   "certifi": {:hex, :certifi, "2.5.3", "70bdd7e7188c804f3a30ee0e7c99655bc35d8ac41c23e12325f36ab449b70651", [:rebar3], [{:parse_trans, "~>3.3", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm", "ed516acb3929b101208a9d700062d520f3953da3b6b918d866106ffa980e1c10"},
   "credo": {:hex, :credo, "1.5.4", "9914180105b438e378e94a844ec3a5088ae5875626fc945b7c1462b41afc3198", [:mix], [{:bunt, "~> 0.2.0", [hex: :bunt, repo: "hexpm", optional: false]}, {:file_system, "~> 0.2.8", [hex: :file_system, repo: "hexpm", optional: false]}, {:jason, "~> 1.0", [hex: :jason, repo: "hexpm", optional: false]}], "hexpm", "cf51af45eadc0a3f39ba13b56fdac415c91b34f7b7533a13dc13550277141bc4"},

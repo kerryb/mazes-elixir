@@ -53,6 +53,7 @@ defmodule Mazes.MixProject do
   defp deps do
     [
       {:assert_value, "~> 0.9", only: [:dev, :test]},
+      {:briefly, "~> 0.3", only: [:test]},
       {:credo, "~> 1.3", only: [:dev, :test]},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
