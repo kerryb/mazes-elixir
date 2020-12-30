@@ -144,8 +144,14 @@ defmodule Mazes.Grid do
     end
 
     defp inspect_cell_top(grid, cell) do
-      if Grid.linked_east?(grid, cell), do: "    ", else: "   |"
+      east_wall = if Grid.linked_east?(grid, cell), do: " ", else: "|"
+      "#{format_distance(grid.distances[cell])}#{east_wall}"
     end
+
+    defp format_distance(nil), do: "   "
+    defp format_distance(distance) when distance < 10, do: " #{distance} "
+    defp format_distance(distance) when distance < 100, do: " #{distance}"
+    defp format_distance(distance), do: to_string(distance)
 
     defp inspect_cell_bottom(grid, cell) do
       if Grid.linked_south?(grid, cell), do: "   +", else: "---+"
