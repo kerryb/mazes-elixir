@@ -9,17 +9,22 @@ defmodule Mazes.Grid do
     * cells: a list of `{row, column}` tuples representing the cells in the
       grid
     * links: a map of cells to lists of their linked cells
+    * origin: the cell from which distances are calculated (see
+      `Mazes.Solver.Distances`)
+    * distances: a map of cells to their distances from the origin
   """
 
   @enforce_keys [:rows, :columns]
-  defstruct rows: nil, columns: nil, cells: [], links: %{}
+  defstruct rows: nil, columns: nil, cells: [], links: %{}, origin: nil, distances: %{}
 
   @type cell :: {integer(), integer()}
   @type t :: %__MODULE__{
           rows: integer(),
           columns: integer(),
           cells: [cell()],
-          links: %{cell() => [cell()]}
+          links: %{cell() => [cell()]},
+          origin: cell() | nil,
+          distances: %{cell() => integer()}
         }
 
   @spec new(integer(), integer()) :: t()
@@ -69,6 +74,14 @@ defmodule Mazes.Grid do
     %{grid | links: links}
   end
 
+  @spec links(t(), cell()) :: [cell()]
+  def links(grid, cell) do
+    case grid.links[cell] do
+      nil -> []
+      links -> links
+    end
+  end
+
   @spec linked_north?(t(), cell()) :: boolean()
   def linked_north?(grid, cell), do: north(grid, cell) in links(grid, cell)
 
@@ -80,13 +93,6 @@ defmodule Mazes.Grid do
 
   @spec linked_west?(t(), cell()) :: boolean()
   def linked_west?(grid, cell), do: west(grid, cell) in links(grid, cell)
-
-  defp links(grid, cell) do
-    case grid.links[cell] do
-      nil -> []
-      links -> links
-    end
-  end
 
   @spec map_cells(t(), (t(), cell() -> t())) :: t()
   def map_cells(grid, fun) do

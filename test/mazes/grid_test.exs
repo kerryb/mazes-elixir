@@ -1,3 +1,4 @@
+# credo:disable-for-this-file Credo.Check.Design.DuplicatedCode
 # credo:disable-for-this-file Credo.Check.Readability.SinglePipe
 # credo:disable-for-this-file Credo.Check.Refactor.PipeChainStart
 
@@ -102,6 +103,13 @@ defmodule Mazes.GridTest do
     test "adds bidirectional links with the cell with the cell's western neighbour" do
       grid = Grid.new(3, 3) |> Grid.link_west({1, 1})
       assert grid.links == %{{1, 1} => [{1, 0}], {1, 0} => [{1, 1}]}
+    end
+  end
+
+  describe "Mazes.Grid.links/2" do
+    test "returns the linked cells" do
+      grid = Grid.new(3, 3) |> Grid.link_east({1, 1}) |> Grid.link_north({1, 1})
+      assert Grid.links(grid, {1, 1}) == [{2, 1}, {1, 2}]
     end
   end
 
