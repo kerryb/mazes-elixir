@@ -1,4 +1,3 @@
-# credo:disable-for-this-file Credo.Check.Design.DuplicatedCode
 # credo:disable-for-this-file Credo.Check.Readability.SinglePipe
 # credo:disable-for-this-file Credo.Check.Refactor.PipeChainStart
 
