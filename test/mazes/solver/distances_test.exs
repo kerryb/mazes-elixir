@@ -39,4 +39,50 @@ defmodule Mazes.Solver.DistancesTest do
                    """
     end
   end
+
+  describe "Mazes.Solver.Distances.solve/2" do
+    test "sets the goal" do
+      grid =
+        Grid.new(3, 3)
+        |> Sidewinder.on()
+        |> Distances.calculate({0, 0})
+        |> Distances.solve({2, 2})
+
+      assert grid.goal == {2, 2}
+    end
+
+    test "sets the solved flag" do
+      grid =
+        Grid.new(3, 3)
+        |> Sidewinder.on()
+        |> Distances.calculate({0, 0})
+        |> Distances.solve({2, 2})
+
+      assert grid.solved?
+    end
+
+    test "calculates the shortest path from origin to goal" do
+      :rand.seed(:exrop, {101, 102, 103})
+
+      grid =
+        Grid.new(5, 5)
+        |> Sidewinder.on()
+        |> Distances.calculate({0, 0})
+        |> Distances.solve({4, 4})
+
+      assert_value inspect(grid) == """
+                   +---+---+---+---+---+
+                   |     *   *   *   * |
+                   +---+   +---+   +---+
+                   | *   *     |       |
+                   +   +---+   +---+   +
+                   | * |           |   |
+                   +   +---+---+---+   +
+                   | * |               |
+                   +   +   +   +---+   +
+                   | * |   |       |   |
+                   +---+---+---+---+---+
+                   """
+    end
+  end
 end

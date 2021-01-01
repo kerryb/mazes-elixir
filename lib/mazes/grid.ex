@@ -12,10 +12,21 @@ defmodule Mazes.Grid do
     * origin: the cell from which distances are calculated (see
       `Mazes.Solver.Distances`)
     * distances: a map of cells to their distances from the origin
+    * goal: the cell we're finding a path to
+    * solved?: a flag indicating whether the maze has been solved
+    * solution: a list of cells forming a path from origin to goal
   """
 
   @enforce_keys [:rows, :columns]
-  defstruct rows: nil, columns: nil, cells: [], links: %{}, origin: nil, distances: %{}
+  defstruct rows: nil,
+            columns: nil,
+            cells: [],
+            links: %{},
+            origin: nil,
+            distances: %{},
+            goal: nil,
+            solved?: false,
+            solution: []
 
   @type cell :: {integer(), integer()}
   @type t :: %__MODULE__{
@@ -143,9 +154,18 @@ defmodule Mazes.Grid do
       Enum.map(0..(grid.columns - 1), &fun.(grid, {row, &1}))
     end
 
+    defp inspect_cell_top(%{solved?: true} = grid, cell) do
+      east_wall = if Grid.linked_east?(grid, cell), do: " ", else: "|"
+      "#{mark_if_on_solution_path(grid, cell)}#{east_wall}"
+    end
+
     defp inspect_cell_top(grid, cell) do
       east_wall = if Grid.linked_east?(grid, cell), do: " ", else: "|"
       "#{format_distance(grid.distances[cell])}#{east_wall}"
+    end
+
+    defp mark_if_on_solution_path(grid, cell) do
+      if cell in grid.solution, do: " * ", else: "   "
     end
 
     defp format_distance(nil), do: "   "
